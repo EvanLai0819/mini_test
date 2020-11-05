@@ -1,8 +1,10 @@
 package util;
 
-import java.util.*;
+import Exception.MiniException;
 
-import Exception.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Combition {
     private HashMap<Integer, String> hMap;
@@ -42,7 +44,7 @@ public class Combition {
         hMap.put(9, "wxyz");
     }
 
-    public void combitionCal(int[] input) {
+    public void combineCal(int[] input) {
         this.numberConf();
         this.validation(input);
         int length = 0;
@@ -70,8 +72,8 @@ public class Combition {
             }
         }
 
-        if (this.getCache()) {
-            this.cacheQueue = tmp_queue;
+        if (this.getCache()==1) {
+            this.cacheQueue = this.queue;
         }
         System.out.println("result is " + this.queue);
     }

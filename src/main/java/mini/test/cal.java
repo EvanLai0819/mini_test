@@ -1,6 +1,4 @@
-package main;
-
-import java.util.*;
+package mini.test;
 
 import util.*;
 
@@ -10,6 +8,6 @@ public class cal {
         // int[] str = {2, 3,99,33};
         Combition c = new Combition();
         c.setCache();
-        c.combitionCal(str);
+        c.combineCal(str);
     }
 }
