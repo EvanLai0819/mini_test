@@ -2,15 +2,14 @@ package mini.test;
 
 import static org.junit.Assert.assertTrue;
 
+import Services.CombinationServices;
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
 import junit.framework.TestCase;
-import util.*;
 import Exception.*;
 
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CalculateTest extends TestCase {
@@ -26,7 +25,7 @@ public class CalculateTest extends TestCase {
     public void testSingleCombination() {
         int[] testArr = {2};
         List<String> expectedResult = Arrays.asList("a","b","c");
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         c.combinationCal(testArr);
         List<String> combinationResult = c.combinationResult;
 
@@ -37,7 +36,7 @@ public class CalculateTest extends TestCase {
     public void testMultiCombination() {
         int[] testArr = {2, 3};
         List<String> expectedResult = Arrays.asList("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf");
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         c.combinationCal(testArr);
         List<String> combinationResult = c.combinationResult;
 
@@ -49,7 +48,7 @@ public class CalculateTest extends TestCase {
     public void testSpecialCombination() {
         int[] testArr = {0,2,3};
         List<String> expectedResult = Arrays.asList("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf");
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         c.combinationCal(testArr);
         List<String> combinationResult = c.combinationResult;
 
@@ -59,7 +58,7 @@ public class CalculateTest extends TestCase {
     @Test
     public void testNotExsitValueCombination() {
         int[] testArr = {0,99};
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         try{
             c.combinationCal(testArr);
         }catch(MiniException e){
@@ -70,7 +69,7 @@ public class CalculateTest extends TestCase {
     @Test
     public void testEmptyCombination() {
         int[] testArr = {};
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         c.setCacheStatus();
         try{
             c.combinationCal(testArr);
@@ -82,7 +81,7 @@ public class CalculateTest extends TestCase {
     @Test
     public void testCacheCombination() {
         int[] testArr = {0,2,3};
-        Combination c = new Combination();
+        CombinationServices c = new CombinationServices();
         c.setCacheStatus();
         c.combinationCal(testArr);
         List<String> combinationResult = c.combinationResult;

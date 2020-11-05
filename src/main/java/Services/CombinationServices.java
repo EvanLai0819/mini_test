@@ -1,4 +1,4 @@
-package util;
+package Services;
 
 import Exception.MiniException;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Combination {
+public class CombinationServices {
     private HashMap<Integer, String> numberConfig;
     public List<String> combinationResult = new ArrayList<>();
     public List<String> cacheCombinationResult = new ArrayList<>();
