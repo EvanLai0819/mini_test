@@ -8,29 +8,32 @@ import java.util.List;
 
 public class Combination {
     private HashMap<Integer, String> numberConfig;
-    public List<String> queue = new ArrayList<>();
-    public List<String> cacheQueue = new ArrayList<>();
+    public List<String> combinationResult = new ArrayList<>();
+    public List<String> cacheCombinationResult = new ArrayList<>();
     public int cache = 0;
 
+    /**
+     * verify input correct or not, if not, it will throw exception
+     * @param input
+     */
     private void validation(int[] input) {
         if (input.length == 0) {
-            System.out.println("ERROR: empty input -> " + input);
             throw new MiniException("500", "empty input");
         }
 
         int length = 0;
         length = input.length;
-        String str = "";
+        String numberConfigValue = "";
         for (int inputIndex = 0; inputIndex < length; inputIndex++) {
-            str = this.numberConfig.get(input[inputIndex]);
-            if (str == null) {
-                throw new MiniException("500", "str no exist");
+            numberConfigValue = this.numberConfig.get(input[inputIndex]);
+            if (numberConfigValue == null) {
+                throw new MiniException("500", "number is not match");
             }
         }
     }
 
     /**
-     * return array
+     * get default digital letter table
      */
     private void getNumberConf() {
         this.numberConfig = new HashMap<Integer, String>();
@@ -46,46 +49,70 @@ public class Combination {
         numberConfig.put(9, "wxyz");
     }
 
+    /**
+     * combination input
+     * @param input
+     */
     public void combinationCal(int[] input) {
+        //1. get the default letter table
         this.getNumberConf();
+        //2. check the input correct or not
         this.validation(input);
         int length = 0;
         length = input.length;
-        String str = "";
+        String numberConfigValue = "";
         char[] numberConfigArr;
+        //if set cache equal true and cache has exist, return cache
+        if (this.getCacheStatus() == 1 && this.getCache().size() > 0) {
+            this.combinationResult = this.cacheCombinationResult;
+            return;
+        }
         for (int inputIndex = 0; inputIndex < length; inputIndex++) {
-            str = this.numberConfig.get(input[inputIndex]);
-            if(str=='') continue;
-            if (inputIndex == 0) {
-                numberConfigArr = str.toCharArray();
+            numberConfigValue = this.numberConfig.get(input[inputIndex]);
+            if (inputIndex == 0 || this.combinationResult.size() == 0) {
+                numberConfigArr = numberConfigValue.toCharArray();
                 for (int numberConfigArrIndex = 0; numberConfigArrIndex < numberConfigArr.length; numberConfigArrIndex++) {
-                    this.queue.add(Character.toString(numberConfigArr[numberConfigArrIndex]));
+                    this.combinationResult.add(Character.toString(numberConfigArr[numberConfigArrIndex]));
                 }
                 continue;
             } else {
-                numberConfigArr = str.toCharArray();
+                numberConfigArr = numberConfigValue.toCharArray();
                 List<String> tmp_queue = new ArrayList<>();
-                for (String queueItem : this.queue) {
-                    // this.queue.remove(qi);
+                for (String item : this.combinationResult) {
                     for (int numberConfigArrIndex = 0; numberConfigArrIndex < numberConfigArr.length; numberConfigArrIndex++) {
-                        tmp_queue.add(queueItem + Character.toString(numberConfigArr[numberConfigArrIndex]));
+                        tmp_queue.add(item + Character.toString(numberConfigArr[numberConfigArrIndex]));
                     }
-                    this.queue = tmp_queue;
+                    this.combinationResult = tmp_queue;
                 }
             }
         }
 
-        if (this.getCache() == 1) {
-            this.cacheQueue = this.queue;
+        if (this.getCacheStatus() == 1) {
+            this.cacheCombinationResult = this.combinationResult;
         }
-        System.out.println("result is " + this.queue);
+        System.out.println("result is " + this.combinationResult);
     }
 
+    /**
+     * set use cache or not,if use it, it can imporve performance
+     */
     public void setCacheStatus() {
         this.cache = 1;
     }
 
-    public Integer getCache() {
+    /**
+     * get cache status
+     * @return
+     */
+    public Integer getCacheStatus() {
         return this.cache;
+    }
+
+    /**
+     * get cache data
+     * @return
+     */
+    public List<String> getCache() {
+        return this.cacheCombinationResult;
     }
 }

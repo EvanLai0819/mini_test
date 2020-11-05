@@ -13,17 +13,17 @@ public class MiniException extends RuntimeException {
         this.errorMsg = message;
     }
 
-    public MiniException(String retCd, String msgDes) {
+    public MiniException(String errorCode, String errorMsg) {
         super();
-        this.errorCode = retCd;
-        this.errorMsg = msgDes;
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
     }
 
-    public String getRetCd() {
+    public String getErrorCode() {
         return this.errorCode;
     }
 
-    public String getMsgDes() {
+    public String getErrorMsg() {
         return this.errorMsg;
 
     }

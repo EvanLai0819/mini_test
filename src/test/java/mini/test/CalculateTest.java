@@ -7,7 +7,10 @@ import org.junit.After;
 import org.junit.Before;
 import junit.framework.TestCase;
 import util.*;
+import Exception.*;
 
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CalculateTest extends TestCase {
@@ -21,37 +24,70 @@ public class CalculateTest extends TestCase {
 
     @Test
     public void testSingleCombination() {
-        int[] str = {2};
-        String[] expectedResult = {"a","b","c"};
+        int[] testArr = {2};
+        List<String> expectedResult = Arrays.asList("a","b","c");
         Combination c = new Combination();
-        c.setCacheStatus();
-        c.combinationCal(str);
-        List<String> queue = c.queue;
+        c.combinationCal(testArr);
+        List<String> combinationResult = c.combinationResult;
 
-        assertEquals(expectedResult, queue);
+        assertEquals(expectedResult, combinationResult);
     }
 
     @Test
     public void testMultiCombination() {
-        int[] str = {2, 3};
-        String[] expectedResult = {"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"};
+        int[] testArr = {2, 3};
+        List<String> expectedResult = Arrays.asList("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf");
         Combination c = new Combination();
-        c.setCacheStatus();
-        c.combinationCal(str);
-        List<String> queue = c.queue;
+        c.combinationCal(testArr);
+        List<String> combinationResult = c.combinationResult;
 
-        assertEquals(expectedResult, queue);
+        assertEquals(expectedResult, combinationResult);
+    }
+
+
+    @Test
+    public void testSpecialCombination() {
+        int[] testArr = {0,2,3};
+        List<String> expectedResult = Arrays.asList("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf");
+        Combination c = new Combination();
+        c.combinationCal(testArr);
+        List<String> combinationResult = c.combinationResult;
+
+        assertEquals(expectedResult, combinationResult);
+    }
+
+    @Test
+    public void testNotExsitValueCombination() {
+        int[] testArr = {0,99};
+        Combination c = new Combination();
+        try{
+            c.combinationCal(testArr);
+        }catch(MiniException e){
+            assertEquals(e.getErrorMsg(),"number is not match");
+        }
     }
 
     @Test
     public void testEmptyCombination() {
-        int[] str = {};
-        String[] expectedResult = {"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"};
+        int[] testArr = {};
         Combination c = new Combination();
         c.setCacheStatus();
-        c.combinationCal(str);
-        List<String> queue = c.queue;
+        try{
+            c.combinationCal(testArr);
+        }catch(MiniException e){
+            assertEquals(e.getErrorMsg(),"empty input");
+        }
+    }
 
-        assertEquals(expectedResult, queue);
+    @Test
+    public void testCacheCombination() {
+        int[] testArr = {0,2,3};
+        Combination c = new Combination();
+        c.setCacheStatus();
+        c.combinationCal(testArr);
+        List<String> combinationResult = c.combinationResult;
+        List<String> cacheCombinationResult = c.cacheCombinationResult;
+
+        assertEquals(cacheCombinationResult, combinationResult);
     }
 }
