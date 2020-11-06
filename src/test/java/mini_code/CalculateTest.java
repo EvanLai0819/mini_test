@@ -1,13 +1,11 @@
-package mini.test;
+package mini_code;
 
-import static org.junit.Assert.assertTrue;
-
+import Exception.MiniException;
 import Services.CombinationServices;
-import org.junit.Test;
+import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
-import junit.framework.TestCase;
-import Exception.*;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package mini.test;
+package mini_code;
 
 import Services.CombinationServices;
 

@@ -18,7 +18,7 @@ public class CombinationServices {
      */
     private void validation(int[] input) {
         if (input.length == 0) {
-            throw new MiniException("500", "empty input");
+            throw new MiniException("100001", "empty input");
         }
 
         int length = 0;
@@ -27,7 +27,7 @@ public class CombinationServices {
         for (int inputIndex = 0; inputIndex < length; inputIndex++) {
             numberConfigValue = this.numberConfig.get(input[inputIndex]);
             if (numberConfigValue == null) {
-                throw new MiniException("500", "number is not match");
+                throw new MiniException("100002", "number is not match");
             }
         }
     }
